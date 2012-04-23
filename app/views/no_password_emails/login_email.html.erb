@@ -1,0 +1,5 @@
+Did you request to log in to nopassword.com from <%= @remote_ip %> with user agent <%= @user_agent %> at <%= @time %>?
+
+If you did, simply click on this link: <%= url_for(:host => "localhost:3000", :controller => "main", :action => "login", :id => @id, :code => @code) %>
+
+If not, please ignore this email.
