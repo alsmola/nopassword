@@ -4,58 +4,81 @@
     <button type="submit" class="btn" id="logout">Logout</button>
   <% end %>
   <% if !other_active_sessions.empty? %>
-  <h2>Other active sessions</h2>
-  <table class="table table-striped">
-    <thead>
-      <tr><th>Activated at</th><th>IP</th><th>User agent</th></tr>
-    </thead>
-    <tbody>
-    <% other_active_sessions.each do |as| %>
-      <tr>
-        <td>
-          <%= h friendly_time(as.activated_at) %>
-        </td>
-        <td>
-          <%= h as.activating_ip %>
-        </td>
-        <td>
-          <%= h browser_name(as.activating_user_agent) %>
-        </td>
-        <td>
-          <button class="btn revoke">Revoke</button>
-          <input type="hidden" value="<%= h as.id %>">
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+    <h2>Other active sessions</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Activated at</th><th>IP</th><th>User agent</th></tr>
+      </thead>
+      <tbody>
+        <% other_active_sessions.each do |as| %>
+          <tr>
+            <td>
+              <%= h friendly_time(as.activated_at) %>
+            </td>
+            <td>
+              <%= h as.activating_ip %>
+            </td>
+            <td>
+              <%= h browser_name(as.activating_user_agent) %>
+            </td>
+            <td>
+              <button class="btn revoke">Revoke</button>
+              <input type="hidden" value="<%= h as.id %>">
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
   <% if !inactive_sessions.empty? %>
-  <h2>Inactive sessions</h2>
-  <table class="table table-striped">
-    <thead>
-      <tr><th>Terminated at</th><th>IP</th><th>User agent</th></tr>
-    </thead>
-    <tbody>
-    <% inactive_sessions.each do |is| %>
-      <tr>
-        <td>
-          <%= h friendly_time(is.terminated_at) %>
-        </td>
-        <td>
-          <%= h is.activating_ip %>
-        </td> 
-        <td>
-          <%= h browser_name(is.activating_user_agent) %>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+    <h2>Inactive sessions</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr><th>Terminated at</th><th>IP</th><th>User agent</th></tr>
+      </thead>
+      <tbody>
+        <% inactive_sessions.each do |is| %>
+          <tr>
+            <td>
+              <%= h friendly_time(is.terminated_at) %>
+            </td>
+            <td>
+              <%= h is.activating_ip %>
+            </td> 
+            <td>
+              <%= h browser_name(is.activating_user_agent) %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   <% end %>
 <% else %>
-  <%= form_tag("send_login_email") do %>
-    <input type="text" id="email" name="email" placeholder="you@example.com">
-    <button type="submit" id="submit_email" class="btn">Login</button>
-  <% end %>
+  <div class="page-header">
+    <h1>
+      NoPassword means you don't need a password or a complicated OAuth scheme. Just email.
+    </h1>
+  </div>
+  <div class="row">
+    <div id="send-login-email" class="span6 offset3">
+      <div class="send-login-email-inner">
+      <%= form_tag("send_login_email", :class => "form-inline") do %>
+        <input type="text" id="email" name="email" class="input-medium" placeholder="you@example.com">
+        <button type="submit" id="submit_email" class="btn btn-success btn-large">Login</button>
+      <% end %>
+    </div>
+    </div>
+  </div>
+  <div class="row">
+    <p class="big span8 offset2">
+    Most web sites ask for a password when you register.
+    After logging in, you can access the site until your session expires.  
+    When you forget your password, you can request an email with a link to a password change form.
+    </p>
+    <p class="big span8 offset2">
+    <em>NoPassword</em> factors out the password from this process. You register with an email address and receive a link that gives you a session on that browser until you log out.
+    If you ever need to log in from somewhere else, you can request another email with a link that will log you in wherever you are.
+    </p>
+  </div>
+</div>
 <% end %>
