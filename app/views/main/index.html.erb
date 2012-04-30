@@ -1,35 +1,29 @@
 <% if session[:login_session] %>
-  <p>You are logged in as <%= logged_in_user.email %>.</p>
-  <%= form_tag("logout") do %>
-    <button type="submit" class="btn" id="logout">Logout</button>
-  <% end %>
-  <% if !other_active_sessions.empty? %>
-    <h2>Other active sessions</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr><th>Activated at</th><th>IP</th><th>User agent</th></tr>
-      </thead>
-      <tbody>
-        <% other_active_sessions.each do |as| %>
-          <tr>
-            <td>
-              <%= h friendly_time(as.activated_at) %>
-            </td>
-            <td>
-              <%= h as.activating_ip %>
-            </td>
-            <td>
-              <%= h browser_name(as.activating_user_agent) %>
-            </td>
-            <td>
-              <button class="btn revoke">Revoke</button>
-              <input type="hidden" value="<%= h as.id %>">
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+  <h2>Active sessions</h2>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>Activated at</th><th>IP</th><th>User agent</th></tr>
+    </thead>
+    <tbody>
+      <% active_sessions.each do |as| %>
+        <tr <%= as.id == session[:login_session] ? "class=highlight": '' %>>
+          <td>
+            <%= h friendly_time(as.activated_at) %>
+          </td>
+          <td>
+            <%= h as.activating_ip %>
+          </td>
+          <td>
+            <%= h browser_name(as.activating_user_agent) %>
+          </td>
+          <td>
+            <button class="btn revoke">Revoke</button>
+            <input type="hidden" value="<%= h as.id %>">
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
   <% if !inactive_sessions.empty? %>
     <h2>Inactive sessions</h2>
     <table class="table table-striped">
@@ -62,11 +56,11 @@
   <div class="row">
     <div id="send-login-email" class="span6 offset3">
       <div class="send-login-email-inner">
-      <%= form_tag("send_login_email", :class => "form-inline") do %>
-        <input type="text" id="email" name="email" class="input-medium" placeholder="you@example.com">
-        <button type="submit" id="submit_email" class="btn btn-success btn-large">Login</button>
-      <% end %>
-    </div>
+        <%= form_tag("send_login_email", :class => "form-inline") do %>
+          <input type="text" id="email" name="email" class="input-medium" placeholder="you@example.com">
+          <button type="submit" id="submit_email" class="btn btn-success btn-large">Login</button>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="row">

@@ -4,8 +4,8 @@ module MainHelper
     LoginSession.find(session[:login_session])
   end
 
-  def other_active_sessions
-    LoginSession.where("email == :email AND activated == 't' AND terminated == 'f' AND id != :current_id", { :email => logged_in_user.email, :current_id => session[:login_session]})
+  def active_sessions
+    LoginSession.where("email == :email AND activated == 't' AND terminated == 'f'", { :email => logged_in_user.email })
   end
 
   def inactive_sessions
