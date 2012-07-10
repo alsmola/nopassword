@@ -1,6 +1,6 @@
 module ApplicationHelper
   def friendly_time(time)
-    time.strftime("%d-%m-%Y %H:%M")
+    time_ago_in_words(time) + " ago"
   end
 
   def browser_name(ua)

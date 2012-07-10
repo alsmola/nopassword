@@ -1,52 +1,35 @@
-<% if session[:login_session] %>
-  <h2>Active sessions</h2>
-  <table class="table table-striped">
+<% if @current_session %>
+  <table id="active" class="table table-striped table-sessions">
     <thead>
+      <tr><th colspan="4"><h2>Active sessions</h2></th></tr>
       <tr><th>Activated at</th><th>IP</th><th>User agent</th></tr>
     </thead>
     <tbody>
       <% active_sessions.each do |as| %>
         <tr <%= as.id == session[:login_session] ? "class=highlight": '' %>>
-          <td>
+          <td class="span3">
             <%= h friendly_time(as.activated_at) %>
           </td>
-          <td>
+          <td class="span3">
             <%= h as.activating_ip %>
           </td>
-          <td>
+          <td class="span3">
             <%= h browser_name(as.activating_user_agent) %>
           </td>
           <td>
-            <button class="btn revoke">Revoke</button>
-            <input type="hidden" value="<%= h as.id %>">
+            <% if (as.id == session[:login_session]) %>
+              <%= form_tag("logout", :class => 'logout') do %>
+                <button class="btn" id="logout">Logout</button>
+              <% end %>
+            <% else %>
+              <button class="btn revoke">Revoke</button>
+              <input type="hidden" value="<%= h as.id %>">
+            <% end %>
           </td>
         </tr>
       <% end %>
     </tbody>
   </table>
-  <% if !inactive_sessions.empty? %>
-    <h2>Inactive sessions</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr><th>Terminated at</th><th>IP</th><th>User agent</th></tr>
-      </thead>
-      <tbody>
-        <% inactive_sessions.each do |is| %>
-          <tr>
-            <td>
-              <%= h friendly_time(is.terminated_at) %>
-            </td>
-            <td>
-              <%= h is.activating_ip %>
-            </td> 
-            <td>
-              <%= h browser_name(is.activating_user_agent) %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
 <% else %>
   <div class="page-header">
     <h1>

@@ -1,0 +1,67 @@
+@import "twitter/bootstrap/bootstrap";
+body { 
+	padding-top: 60px;
+	padding-left: 20px;
+}
+
+@import "twitter/bootstrap/responsive";
+
+// Set the correct sprite paths
+@iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
+@iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
+
+// Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
+// Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not 
+//       have the proper paths. So for now we use the absolute path.
+@fontAwesomeEotPath: '/assets/fontawesome-webfont.eot';
+@fontAwesomeWoffPath: '/assets/fontawesome-webfont.woff';
+@fontAwesomeTtfPath: '/assets/fontawesome-webfont.ttf';
+@fontAwesomeSvgPath: '/assets/fontawesome-webfont.svg';
+
+// Font Awesome
+@import "fontawesome";
+
+// Your custom LESS stylesheets goes here
+#send-login-email form {
+  padding: 20px;
+  background-color: gray;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  border: 5px solid white;
+  -moz-box-shadow: 0 0 2px 2px #888;
+  -webkit-box-shadow:  0 2px 2px #888;
+  box-shadow: 0 0 2px 2px #888;
+}
+
+#send-login-email input {
+  font-size: 200%;
+  line-height: 1em;
+  height: 1.5em;
+  width: 12em;
+  margin-right: .5em;
+}
+
+.big {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.highlight td {
+  background-color: #049cdb !important;
+  color: white;
+  font-weight: bold;
+}
+
+.table-sessions {
+  width: auto;
+  margin: auto;
+}
+
+.table-sessions button {
+  min-width: 6em;
+}
+
+.logout {
+  margin: 0;
+}

@@ -3,17 +3,20 @@ class MainController < ApplicationController
   before_filter :check_valid_session
 
   def check_valid_session
-    session[:login_session] = nil if session[:login_session] && LoginSession.find(session[:login_session]).terminated
+    if session[:login_session]
+      @current_session = LoginSession.find_by_id(session[:login_session])
+      if !@current_session.active?
+        session[:login_session] = nil
+        redirect_to '/'
+      end
+    end
   end
 
   def send_login_email
     email = request[:email]
     remote_ip = request.remote_ip
     user_agent = request.env["HTTP_USER_AGENT"]
-    session = LoginSession.new(:email => email, :requesting_ip => remote_ip, :requesting_user_agent => user_agent)
-    code = session.generate_code
-    session.save
-    NoPasswordEmails.login_email(email, session.id, session.created_at, remote_ip, user_agent, code).deliver
+    LoginSession.create_session(email, remote_ip, user_agent)
     flash[:notice] = "We sent an email to %{email}" % { :email => email }
     redirect_to '/'
   end
@@ -21,39 +24,32 @@ class MainController < ApplicationController
   def login
     id = request[:id]
     code = request[:code]
-    login_session = LoginSession.lookup_code(id, code)
+    remote_ip = request.remote_ip
+    user_agent = request.env["HTTP_USER_AGENT"]
+    login_session = LoginSession.find_by_id(id)
     if !login_session
-      flash[:notice] = "That code sucked."
+      flash[:notice] = "That's not a valid login link."
     elsif login_session.activated? || login_session.terminated?
       flash[:notice] = "That code is already used."
     elsif login_session.expired?
       flash[:notice] = "That code is old as shit."
+    elsif !login_session.activate_session(code, remote_ip, user_agent)
+      flash[:notice] = "That code sucked."
     else
       session[:login_session] = login_session.id
-      login_session.activated_at = DateTime.now
-      login_session.activating_ip = request.remote_ip
-      login_session.activating_user_agent = request.env["HTTP_USER_AGENT"]
-      login_session.activated = true
-      login_session.save
     end
     redirect_to '/'
   end
 
   def logout
-    login_session = LoginSession.find(session[:login_session])
-    login_session.terminated_at = DateTime.now
-    login_session.terminated = true
-    login_session.save
+    @current_session.logout
     session[:login_session] = nil
     redirect_to '/'
   end
 
   def revoke
     id = request[:id]
-    login_session = LoginSession.find(id)
-    login_session.terminated_at = DateTime.now
-    login_session.terminated = true
-    login_session.save
+    @current_session.revoke(id)
     render :json => { :success => :true } 
   end
 end

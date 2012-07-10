@@ -7,7 +7,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div class="navbar">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
           <a class="brand" href="/">NoPassword</a>
@@ -20,8 +20,8 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                <%= form_tag("logout") do %>
-                  <button type="submit" class="btn" id="logout">Logout</button>
+                <%= form_tag("logout", :class => 'logout') do %>
+                  <a href="#" id="logout">Logout</a>
                 <% end %>
                 </li>
               </ul>
