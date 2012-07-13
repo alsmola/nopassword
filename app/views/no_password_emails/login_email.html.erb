@@ -4,65 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Login request from NoPassword</title>
-    <style>
-      body {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 13px;
-        line-height: 18px;
-        color: #333;
-      }
-      .btn {
-        display: inline-block;
-        padding: 4px 10px 4px;
-        margin-bottom: 0;
-        font-size: 13px;
-        line-height: 18px;
-        color: #333;
-        text-align: center;
-        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-        vertical-align: middle;
-        cursor: pointer;
-        background-color: whiteSmoke;
-        background-image: -ms-linear-gradient(top, white, #E6E6E6);
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#E6E6E6));
-        background-image: -webkit-linear-gradient(top, white, #E6E6E6);
-        background-image: -o-linear-gradient(top, white, #E6E6E6);
-        background-image: linear-gradient(top, white, #E6E6E6);
-        background-image: -moz-linear-gradient(top, white, #E6E6E6);
-        background-repeat: repeat-x;
-        border: 1px solid #CCC;
-        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-        border-color: #E6E6E6 #E6E6E6 #BFBFBF;
-        border-bottom-color: #B3B3B3;
-        -webkit-border-radius: 4px;
-        -moz-border-radius: 4px;
-        border-radius: 4px;
-        filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#e6e6e6', GradientType=0);
-        filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-        -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-        -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-      }
-      .btn-primary {
-        background-color: #0074CC;
-        background-image: -ms-linear-gradient(top, #08C, #05C);
-        background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#08C), to(#05C));
-        background-image: -webkit-linear-gradient(top, #08C, #05C);
-        background-image: -o-linear-gradient(top, #08C, #05C);
-        background-image: -moz-linear-gradient(top, #08C, #05C);
-        background-image: linear-gradient(top, #08C, #05C);
-        background-repeat: repeat-x;
-        border-color: #05C #05C #003580;
-        border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-        filter: progid:dximagetransform.microsoft.gradient(startColorstr='#0088cc', endColorstr='#0055cc', GradientType=0);
-        filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-        color: white;
-        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-      }
-    </style>
   </head>
   <body>
-    <p>Did you request to log in to nopassword.com?</p>
+    <p>We recieved a request for <%= @email %> to log in to <%= @site_name %>.</p>
     <table cellpadding="0" cellspacing="0" border="0">
       <tr>
         <td>
@@ -90,8 +34,10 @@
       </tr>
     </table>
     <p>
-    <a href="<%= url_for(:host => "localhost:3000", :controller => "main", :action => "login", :id => @id, :code => @code) %>" class="btn primary-btn">Yes</a>
-    <a href="<%= url_for(:host => "localhost:3000", :controller => "main", :action => "login", :id => @id) %>" class="btn">No</a>
+    To log in, click here: <%= url_for(:host => "localhost:3000", :controller => "main", :action => "login", :id => @id, :code => @code) %>
+    </p>
+    <p>
+    If not, please ignore this email.
     </p>
   </body>
 </html>

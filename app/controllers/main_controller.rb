@@ -16,7 +16,7 @@ class MainController < ApplicationController
     email = request[:email]
     remote_ip = request.remote_ip
     user_agent = request.env["HTTP_USER_AGENT"]
-    LoginSession.create_session(email, remote_ip, user_agent)
+    LoginSession.create_session(email, remote_ip, user_agent, "nopassword.com")
     flash[:notice] = "We sent an email to %{email}" % { :email => email }
     redirect_to '/'
   end
