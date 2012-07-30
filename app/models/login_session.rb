@@ -2,12 +2,12 @@ require 'bcrypt'
 
 class LoginSession < ActiveRecord::Base
   EXPIRY = 60 * 60 # 1 hour
-
-  def self.create_session(email, requesting_ip, requesting_user_agent, site_name)
+  attr_accessible :email, :requesting_ip, :requesting_user_agent
+  def self.create_session(email, requesting_ip, requesting_user_agent, host)
     session = LoginSession.new(:email => email, :requesting_ip => requesting_ip, :requesting_user_agent => requesting_user_agent)
     code = session.generate_code
     session.save
-    NoPasswordEmails.login_email(email, session.id, session.created_at, requesting_ip, requesting_user_agent, code, site_name).deliver
+    NoPasswordEmails.no_password_email(email, session.id, session.created_at, requesting_ip, requesting_user_agent, code, host).deliver
   end
 
   def activate_session(code, activating_ip, activating_user_agent)
