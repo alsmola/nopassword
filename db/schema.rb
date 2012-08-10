@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120412041547) do
+ActiveRecord::Schema.define(:version => 20120810233418) do
 
   create_table "login_sessions", :force => true do |t|
     t.string   "email"
@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20120412041547) do
     t.datetime "terminated_at"
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
+    t.string   "requesting_geo"
+    t.string   "activating_geo"
   end
 
 end

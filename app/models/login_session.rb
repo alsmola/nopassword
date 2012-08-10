@@ -1,13 +1,16 @@
 require 'bcrypt'
+require 'geoip'
 
 class LoginSession < ActiveRecord::Base
   EXPIRY = 60 * 60 # 1 hour
-  attr_accessible :email, :requesting_ip, :requesting_user_agent
+  attr_accessible :email, :requesting_ip, :requesting_user_agent, :requesting_geo
+
   def self.create_session(email, requesting_ip, requesting_user_agent, host)
-    session = LoginSession.new(:email => email, :requesting_ip => requesting_ip, :requesting_user_agent => requesting_user_agent)
+    requesting_geo = geoip(requesting_ip)
+    session = LoginSession.new(:email => email, :requesting_ip => requesting_ip, :requesting_user_agent => requesting_user_agent, :requesting_geo => requesting_geo)
     code = session.generate_code
     session.save
-    NoPasswordEmails.no_password_email(email, session.id, session.created_at, requesting_ip, requesting_user_agent, code, host).deliver
+    NoPasswordEmails.no_password_email(email, session.id, session.created_at, requesting_ip, requesting_user_agent, requesting_geo, code, host).deliver
   end
 
   def activate_session(code, activating_ip, activating_user_agent)
@@ -16,6 +19,7 @@ class LoginSession < ActiveRecord::Base
     self.activated_at = DateTime.now
     self.activating_ip = activating_ip
     self.activating_user_agent = activating_user_agent
+    self.activating_geo = LoginSession.geoip(activating_ip)
     self.activated = true
     save
   end
@@ -52,5 +56,12 @@ class LoginSession < ActiveRecord::Base
     code = SecureRandom.hex(32).to_s
     self.hashed_code = BCrypt::Password.create(code)
     code
+  end
+
+  def self.geoip(ip)
+    return 'localhost' if ip == '127.0.0.1'
+    c = GeoIP.new('db/GeoLiteCity.dat').city(ip)
+    return 'Unknown' if c.nil?
+    "#{c.city_name}, #{c.country_name}"
   end
 end
