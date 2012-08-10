@@ -1,12 +1,18 @@
 class NopasswordController < ApplicationController
 
+  EMAIL_REGEX = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/
+
   def send_login_email
     email = request[:email]
     remote_ip = request.remote_ip
     user_agent = request.env["HTTP_USER_AGENT"]
     host = request.host
-    LoginSession.create_session(email, remote_ip, user_agent, host)
-    flash[:notice] = "We sent an email to %{email}" % { :email => email }
+    if email =~ EMAIL_REGEX
+      LoginSession.create_session(email, remote_ip, user_agent, host)
+      flash[:notice] = "We sent an email to %{email}" % { :email => email }
+    else
+      flash[:notice] = "That doesn't look like a valid email address"
+    end
     redirect_to '/'
   end
 
