@@ -62,6 +62,6 @@ class LoginSession < ActiveRecord::Base
     return 'localhost' if ip == '127.0.0.1'
     c = GeoIP.new('db/GeoLiteCity.dat').city(ip)
     return 'Unknown' if c.nil?
-    "#{c.city_name}, #{c.country_name}"
+    "#{c.city_name}, #{c.country_code3}"
   end
 end
