@@ -63,6 +63,7 @@ GEM
       treetop (~> 1.4.8)
     mime-types (1.18)
     multi_json (1.3.2)
+    passw3rd (0.2.3)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -125,6 +126,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   geoip
   jquery-rails
+  passw3rd
   rails (= 3.2.0)
   sass-rails (~> 3.2.3)
   sqlite3

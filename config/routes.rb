@@ -1,8 +1,7 @@
 Nopassword::Application.routes.draw do
-  get "main/index"
-  root :to => 'main#index'
+  root :to => 'nopassword#index'
   match 'send_login_email' => 'nopassword#send_login_email'
   match 'login/:id' => 'nopassword#login'
   match 'logout' => 'nopassword#logout'
-  match 'revoke/:id' => 'main#revoke'
+  match 'revoke/:id' => 'nopassword#revoke'
 end

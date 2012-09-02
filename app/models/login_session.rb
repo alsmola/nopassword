@@ -11,6 +11,7 @@ class LoginSession < ActiveRecord::Base
     code = session.generate_code
     session.save
     NoPasswordEmails.no_password_email(email, session.id, session.created_at, requesting_ip, requesting_user_agent, requesting_geo, code, host).deliver
+    return session, code
   end
 
   def activate_session(code, activating_ip, activating_user_agent)
@@ -28,7 +29,7 @@ class LoginSession < ActiveRecord::Base
     LoginSession.where("email == :email AND activated == 't' AND terminated == 'f'", { :email => self.email }).order("activated_at DESC")
   end
 
-  def inactive_sessions
+  def terminated_sessions
     LoginSession.find_all_by_email_and_terminated(self.email, true)
   end
 
@@ -37,11 +38,10 @@ class LoginSession < ActiveRecord::Base
   end
 
   def logout
-    revoke(self.id)
+    self.revoke(self)
   end
 
-  def revoke(id)
-    login_session = LoginSession.find(id)
+  def revoke(login_session)
     return nil if login_session.email != self.email 
     login_session.terminated_at = DateTime.now
     login_session.terminated = true

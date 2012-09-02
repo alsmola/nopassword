@@ -3,5 +3,5 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
-config/secrets.yml
+config/passwords/*
 *.swp

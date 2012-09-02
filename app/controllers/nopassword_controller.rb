@@ -3,6 +3,7 @@ class NopasswordController < ApplicationController
   EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/
 
   def send_login_email
+    redirect_to '/' if !request.post?
     email = request[:email]
     remote_ip = request.remote_ip
     user_agent = request.env["HTTP_USER_AGENT"]
@@ -44,7 +45,9 @@ class NopasswordController < ApplicationController
 
   def revoke
     id = request[:id]
-    @current_session.revoke(id)
-    render :json => { :success => :true } 
+    ls = LoginSession.find_by_id(id)
+    render :json => { :success => :false } unless ls
+    result = @current_session.revoke(ls)
+    render :json => { :success => !!result }
   end
 end
