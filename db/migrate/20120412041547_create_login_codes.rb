@@ -1,6 +1,6 @@
 class CreateLoginCodes < ActiveRecord::Migration
   def change
-    create_table :login_sessions do |t|
+    create_table :nopassword_login_sessions do |t|
       t.string :email
       t.string :hashed_code
       t.string :requesting_ip

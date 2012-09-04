@@ -1,0 +1,48 @@
+body { 
+	padding-top: 60px;
+	padding-left: 20px;
+}
+
+#send-login-email form {
+  padding: 20px;
+  background-color: gray;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  border: 5px solid white;
+  -moz-box-shadow: 0 0 2px 2px #888;
+  -webkit-box-shadow:  0 2px 2px #888;
+  box-shadow: 0 0 2px 2px #888;
+}
+
+#send-login-email input {
+  font-size: 200%;
+  line-height: 1em;
+  height: 1.5em;
+  width: 12em;
+  margin-right: .5em;
+}
+
+.big {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.highlight td {
+  background-color: #049cdb !important;
+  color: white;
+  font-weight: bold;
+}
+
+.table-sessions {
+  width: auto;
+  margin: auto;
+}
+
+.table-sessions button {
+  min-width: 6em;
+}
+
+.logout {
+  margin: 0;
+}

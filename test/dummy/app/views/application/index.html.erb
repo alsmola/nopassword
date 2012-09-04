@@ -1,0 +1,64 @@
+<% if @current_session %>
+  <table id="active" class="table table-striped table-sessions">
+    <thead>
+      <tr><th colspan="4"><h2>Active sessions</h2></th></tr>
+      <tr><th>Activated at</th><th>Location</th><th>User agent</th></tr>
+    </thead>
+    <tbody>
+      <% @current_session.active_sessions.each do |as| %>
+        <tr <%= as.id == session[:login_session] ? "class=highlight": '' %>>
+          <td class="span3">
+            <%= h friendly_time(as.activated_at) %>
+          </td>
+          <td class="span3">
+            <%= h as.activating_geo %>
+          </td>
+          <td class="span3">
+            <%= h browser_name(as.activating_user_agent) %>
+          </td>
+          <td>
+            <% if (as.id == session[:login_session]) %>
+              <%= form_tag("logout", :class => 'logout') do %>
+                <button class="btn" id="logout">Logout</button>
+              <% end %>
+            <% else %>
+              <button class="btn revoke">Revoke</button>
+              <input type="hidden" value="<%= h as.id %>">
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="page-header">
+    <h1>
+      NoPassword means you don't need a password or a complicated OAuth scheme. Just email.
+    </h1>
+  </div>
+  <div class="row">
+    <div id="send-login-email" class="span6 offset3">
+      <div class="send-login-email-inner">
+        <%= form_tag("send_login_email", :class => "form-inline") do %>
+          <input type="text" id="email" name="email" class="input-medium" placeholder="you@example.com">
+          <button type="submit" id="submit_email" class="btn btn-success btn-large">Login</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <p class="big span8 offset2">
+    Most web sites ask for a password when you register.
+    After logging in, you can access the site until your session expires.  
+    When you forget your password, you can request an email with a link to a password change form.
+    </p>
+    <p class="big span8 offset2">
+    <em>NoPassword</em> factors out the password from this process. You register with an email address and receive a link that gives you a session on that browser until you log out.
+    If you ever need to log in from somewhere else, you can request another email with a link that will log you in wherever you are.
+    </p>
+    <p class="big span8 offset2">
+    Check out the code on <a href="https://github.com/alsmola/nopassword">Github</a>. Built by <a href="https://twitter.com/alsmola">@alsmola</a>.
+    </p>
+  </div>
+</div>
+<% end %>
