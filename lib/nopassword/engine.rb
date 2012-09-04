@@ -19,7 +19,7 @@ module Nopassword
 
     initializer  "load_helpers" do
       ActionController::Base.send :include, CheckSession
-      ActionHelper::Base.send :include, ApplicationHelper
+      ActionView::Base.send :include, ApplicationHelper
     end
 
     initializer  "email_settings" do
