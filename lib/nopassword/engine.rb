@@ -1,3 +1,7 @@
+require 'bcrypt'
+require 'browser'
+require 'passw3rd'
+require 'geoip'
 module Nopassword
   class Engine < ::Rails::Engine
     isolate_namespace Nopassword
@@ -15,6 +19,7 @@ module Nopassword
 
     initializer  "load_helpers" do
       ActionController::Base.send :include, CheckSession
+      ActionHelper::Base.send :include, ApplicationHelper
     end
 
     initializer  "email_settings" do

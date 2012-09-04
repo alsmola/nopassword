@@ -1,7 +1,7 @@
 .DS_Store
 .bundle
-db/*.sqlite3
-log/*.log
-tmp/**/*
-config/passwords/*
+test/dummy/db/*.sqlite3
+test/dummy/log/*
+test/dummy/tmp/**/*
+test/dummy/config/passwords/*
 *.swp
