@@ -6,20 +6,21 @@ created long-lived sessions that can be tracked and revoked easily.
 NoPassword is structured as a Rails Engine, which you can mount in your
 routes file:
 
-```
+'''
 mount Nopassword::Engine, :at => "/nopassword"
-```
+'''
 
-You'll need to run the migrations:
+You'll need to install the migrations:
 
-```
+'''
 rake nopassword:install:migrations
-```
+'''
 
 You can set up a signin form with the `send_login_email` route and a
 request parameter named `email`.
 
 If you don't already have email configuerd, create a config/email.yml with your mail server settings.
+
 '''
 defaults: &defaults
   email_server_address: [YOUR MAIL SERVER]
@@ -40,12 +41,12 @@ production:
 NoPassword uses the Passw3rd (https://github.com/oreoshake/passw3rd)
 library to manage email credentials.
 
-```
+'''
 mkdir config/passwords
 cd config/passwords
 passw3rd -g
 passw3rd -e email_password
 [Enter your email password]
-```
+'''
 
 NoPassword uses the MIT-LICENSE.
