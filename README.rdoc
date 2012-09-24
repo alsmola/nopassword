@@ -41,4 +41,9 @@ library to manage email credentials.
   passw3rd -e email_password
   [Enter your email password]
 
+Finally, you need to download the latest GeoIP database:
+
+  cd db
+  wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz && gzip -d GeoLiteCity.dat.gz
+
 NoPassword uses the MIT-LICENSE.
