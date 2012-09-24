@@ -1,7 +1,9 @@
+require 'rubygems'
 require 'bcrypt'
 require 'browser'
 require 'passw3rd'
 require 'geoip'
+
 module Nopassword
   class Engine < ::Rails::Engine
     isolate_namespace Nopassword
