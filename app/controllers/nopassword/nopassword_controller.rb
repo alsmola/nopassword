@@ -14,9 +14,9 @@ module Nopassword
       host = request.host
       if email =~ EMAIL_REGEX
         LoginSession.create_session(email, remote_ip, user_agent, host)
-        flash[:notice] = "We sent an email to %{email}" % { :email => email }
+        flash[:notice] = "We sent an email to %{email}." % { :email => email }
       else
-        flash[:notice] = "That doesn't look like a valid email address"
+        flash[:notice] = "That doesn't look like a valid email address."
       end
       redirect_to '/'
     end
@@ -32,9 +32,9 @@ module Nopassword
       elsif login_session.activated? || login_session.terminated?
         flash[:notice] = "That code is already used."
       elsif login_session.expired?
-        flash[:notice] = "That code is old as shit."
+        flash[:notice] = "That code is expired."
       elsif !login_session.activate_session(code, remote_ip, user_agent)
-        flash[:notice] = "That code sucked."
+        flash[:notice] = "That code could not be used. Please request another."
       else
         session[:login_session] = login_session.id
       end
