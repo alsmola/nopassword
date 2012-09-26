@@ -3,6 +3,8 @@ the need for passwords. Instead, it uses tokens sent to an email
 address, similar to most forgot password functionality. These tokens
 created long-lived sessions that can be tracked and revoked easily.
 
+[Ben Brown](http://ilovebenbrown.com/) wrote a great article about [password-less logins](http://notes.xoxco.com/post/27999787765/is-it-time-for-password-less-login), the same concept implemented by NoPassword.
+
 NoPassword is structured as a Rails Engine, which you can mount in your
 routes file:
 
