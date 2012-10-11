@@ -1,6 +1,6 @@
 module Nopassword
   class NoPasswordEmails < ActionMailer::Base
-    include ApplicationHelper
+    include Nopassword::ApplicationHelper
 
     default :from => 'nopassword@alexsmolen.com',
       :return_path => 'nopassword@alexsmolen.com'
