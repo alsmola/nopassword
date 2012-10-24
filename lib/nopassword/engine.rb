@@ -35,5 +35,8 @@ module Nopassword
         :authentication       => 'plain',
         :enable_starttls_auto => true  }
     end
+
+    config.from_email = 'nopassword@alexsmolen.com'
+    config.return_email = 'nopassword@alexsmolen.com'
   end
 end
