@@ -2,8 +2,8 @@ module Nopassword
   class NoPasswordEmails < ActionMailer::Base
     include Nopassword::ApplicationHelper
 
-    default :from => 'nopassword@alexsmolen.com',
-      :return_path => 'nopassword@alexsmolen.com'
+    default :from => Nopassword::Engine.config.from_email,
+      :return_path => Nopassword::Engine.config.return_email
 
     def no_password_email(email, id, time, remote_ip, user_agent, geo, code, host)
       @id = id
