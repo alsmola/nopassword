@@ -7,7 +7,7 @@ module Nopassword
     before_filter :check_valid_session
 
     def send_login_email
-      redirect_to root_url if !request.post?
+      redirect_to main_app.root_url if !request.post?
       email = request[:email]
       remote_ip = request.remote_ip
       user_agent = request.env["HTTP_USER_AGENT"]
@@ -18,7 +18,7 @@ module Nopassword
       else
         flash[:notice] = "That doesn't look like a valid email address."
       end
-      redirect_to root_url
+      redirect_to main_app.root_url
     end
 
     def login
@@ -38,13 +38,13 @@ module Nopassword
       else
         session[:login_session] = login_session.id
       end
-      redirect_to root_url
+      redirect_to main_app.root_url
     end
 
     def logout
       @current_session.logout
       session[:login_session] = nil
-      redirect_to root_url
+      redirect_to main_app.root_url
     end
 
     def revoke
