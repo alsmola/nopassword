@@ -16,7 +16,7 @@ module Nopassword
       else
         ENV['passw3rd-password_file_dir'] = Rails.root.join('config', 'passwords').to_s
         ENV['passw3rd-key_file_dir'] = Rails.root.join('config', 'passwords').to_s
-      end 
+      end
     end
 
     initializer  "load_helpers" do
@@ -25,15 +25,18 @@ module Nopassword
     end
 
     initializer  "email_settings" do
-      APP_CONFIG = YAML.load_file(Rails.root.join('config', 'email.yml'))[Rails.env]
-      ActionMailer::Base.smtp_settings = {
-        :address              => APP_CONFIG["email_server_address"],
-        :port                 => APP_CONFIG["email_port"],
-        :domain               => APP_CONFIG["email_domain"],
-        :user_name            => APP_CONFIG["email_username"],
-        :password             => Passw3rd::PasswordService.get_password('email_password'),
-        :authentication       => 'plain',
-        :enable_starttls_auto => true  }
+      MAIL_SETTINGS = YAML.load_file(Rails.root.join('config', 'email.yml'))[Rails.env] rescue nil
+      if MAIL_SETTINGS
+        ActionMailer::Base.smtp_settings = {
+          :address              => MAIL_SETTINGS["email_server_address"],
+          :port                 => MAIL_SETTINGS["email_port"],
+          :domain               => MAIL_SETTINGS["email_domain"],
+          :user_name            => MAIL_SETTINGS["email_username"],
+          :password             => Passw3rd::PasswordService.get_password('email_password'),
+          :authentication       => 'plain',
+          :enable_starttls_auto => true
+        }
+      end
     end
 
     config.from_email = 'nopassword@alexsmolen.com'
