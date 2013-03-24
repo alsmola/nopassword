@@ -14,9 +14,9 @@ module Nopassword
       host = request.host
       if email =~ EMAIL_REGEX
         LoginSession.create_session(email, remote_ip, user_agent, host)
-        flash[:notice] = "We sent an email to %{email}." % { :email => email }
+        flash[:notice] = t('nopassword.sent_login_email.mail_sent') % { :email => email }
       else
-        flash[:notice] = "That doesn't look like a valid email address."
+        flash[:notice] = t('nopassword.sent_login_email.invalid_mail')
       end
       redirect_to main_app.root_url
     end
@@ -28,13 +28,13 @@ module Nopassword
       user_agent = request.env["HTTP_USER_AGENT"]
       login_session = LoginSession.find_by_id(id)
       if !login_session
-        flash[:notice] = "That's not a valid login link."
+        flash[:notice] = t('nopassword.login.invalid_link')
       elsif login_session.activated? || login_session.terminated?
-        flash[:notice] = "That code is already used."
+        flash[:notice] = t('nopassword.login.already_used')
       elsif login_session.expired?
-        flash[:notice] = "That code is expired."
+        flash[:notice] = t('nopassword.login.expired')
       elsif !login_session.activate_session(code, remote_ip, user_agent)
-        flash[:notice] = "That code could not be used. Please request another."
+        flash[:notice] = t('nopassword.login.could_not_be_used')
       else
         session[:login_session] = login_session.id
       end
