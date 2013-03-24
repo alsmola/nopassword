@@ -1,6 +1,6 @@
 Rails.application.routes.draw do 
-  match 'send_login_email' => 'nopassword/nopassword#send_login_email'
-  match 'login/:id/:code' => 'nopassword/nopassword#login'
-  match 'logout' => 'nopassword/nopassword#logout'
-  match 'revoke/:id' => 'nopassword/nopassword#revoke'
+  post 'send_login_email' => 'nopassword/nopassword#send_login_email'
+  get 'login/:id/:code' => 'nopassword/nopassword#login'
+  delete 'logout' => 'nopassword/nopassword#logout'
+  delete 'revoke/:id' => 'nopassword/nopassword#revoke'
 end
