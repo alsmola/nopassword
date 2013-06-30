@@ -18,7 +18,7 @@
           </td>
           <td>
             <% if (as.id == session[:login_session]) %>
-              <%= form_tag("logout", :class => 'logout') do %>
+              <%= form_tag("logout", {:method => :delete, :class => 'logout'}) do %>
                 <button class="btn" id="logout">Logout</button>
               <% end %>
             <% else %>

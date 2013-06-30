@@ -1,4 +1,8 @@
 $(document).ready(function(){
+  $.ajaxSetup({
+    headers: { 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content') }
+  });
+
   $('#logout').click(function(e) {
     logoutForm = $(this).parents("form");
     logoutForm.submit();
@@ -7,7 +11,7 @@ $(document).ready(function(){
   $('.revoke').click(function(e) {
     id = $(this).siblings("input").val();
     that = this;
-    $.post('revoke/' + id, function(data) {
+    $.post('revoke/' + id, { _method: 'delete' }, function(data) {
       $(that).parents("tr").fadeOut();
     });
   });

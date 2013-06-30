@@ -23,7 +23,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                <%= form_tag("logout", :class => 'logout') do %>
+                <%= form_tag("logout", {:method => :delete, :class => 'logout'}) do %>
                   <a href="#" id="logout">Logout</a>
                 <% end %>
                 </li>
