@@ -17,7 +17,7 @@ You'll need to install the migrations:
 You can set up a signin form with the `send_login_email` route and a
 request parameter named `email`.
 
-If you don't already have email configuerd, create a config/email.yml with your mail server settings.
+If you don't already have email configured, create a config/email.yml with your mail server settings.
 
     defaults: &defaults
       email_server_address: [YOUR MAIL SERVER]
