@@ -13,6 +13,7 @@ routes file:
 You'll need to install the migrations:
 
     rake nopassword:install:migrations
+    rake db:migrate
 
 You can set up a signin form with the `send_login_email` route and a
 request parameter named `email`.
@@ -25,12 +26,12 @@ If you don't already have email configured, create a config/email.yml with your 
       email_domain: [YOUR MAIL DOMAIN]
       email_username: [YOUR MAIL USERNAME]
 
-    development:     
-     <<: *defaults   
+    development:
+     <<: *defaults
 
     test:
-     <<: *defaults                
-    
+     <<: *defaults
+
     production:
      <<: *defaults
 
