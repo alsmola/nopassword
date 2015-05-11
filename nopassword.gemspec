@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.add_dependency "browser"
   s.add_dependency "geoip"
   s.add_dependency "bcrypt-ruby", '~> 3.0.0'
-  s.add_dependency "passw3rd"
 
   s.add_development_dependency "sqlite3"
 end

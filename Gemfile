@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-gem 'rails', '3.2.0'
+gem 'rails'
 gem 'sqlite3'
 
 # Gems used only for assets and not required
@@ -14,4 +14,5 @@ end
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'browser'
 gem 'geoip'
-gem 'passw3rd'
+gem 'aws-ses'
+gem 'dotenv'

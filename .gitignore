@@ -5,3 +5,4 @@ test/dummy/log/*
 test/dummy/tmp/**/*
 test/dummy/config/passwords/*
 *.swp
+.env

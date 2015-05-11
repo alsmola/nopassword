@@ -18,30 +18,7 @@ You'll need to install the migrations:
 You can set up a signin form with the `send_login_email` route and a
 request parameter named `email`.
 
-If you don't already have email configured, create a config/email.yml with your mail server settings.
-
-    defaults: &defaults
-      email_server_address: [YOUR MAIL SERVER]
-      email_port: [YOUR MAIL PORT]
-      email_domain: [YOUR MAIL DOMAIN]
-      email_username: [YOUR MAIL USERNAME]
-
-    development:
-     <<: *defaults
-
-    test:
-     <<: *defaults
-
-    production:
-     <<: *defaults
-
-NoPassword uses the [Passw3rd](https://github.com/oreoshake/passw3rd) library to manage email credentials.
-
-    mkdir config/passwords
-    cd config/passwords
-    passw3rd -g
-    passw3rd -e email_password
-    [Enter your email password]
+You'll need to get Rails' [ActionMailer](http://guides.rubyonrails.org/action_mailer_basics.html) configured correctly for sending NoPassword emails.
 
 Finally, you need to download the latest GeoIP database:
 
