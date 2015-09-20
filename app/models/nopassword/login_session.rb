@@ -4,7 +4,6 @@ require 'geoip'
 module Nopassword
   class LoginSession < ActiveRecord::Base
     EXPIRY = 60 * 60 # 1 hour
-    attr_accessible :email, :requesting_ip, :requesting_user_agent, :requesting_geo
 
     def self.create_session(email, requesting_ip, requesting_user_agent, host)
       requesting_geo = geoip(requesting_ip)
