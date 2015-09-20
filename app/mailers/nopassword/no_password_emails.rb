@@ -2,7 +2,7 @@ module Nopassword
   class NoPasswordEmails < ActionMailer::Base
     include Nopassword::ApplicationHelper
 
-    def no_password_email(email, id, time, remote_ip, user_agent, geo, code, host)
+    def no_password_email(email, id, time, remote_ip, user_agent, geo, code, host, protocol)
       @id = id
       @time = time.strftime("%e %b %Y %H:%m")
       @remote_ip = remote_ip
@@ -11,6 +11,7 @@ module Nopassword
       @code = code
       @email = email
       @host = host
+      @protocol = protocol
       mail(:to => email,
            :subject => "Login request from #{host}")
     end

@@ -5,18 +5,18 @@ module Nopassword
   class LoginSession < ActiveRecord::Base
     EXPIRY = 60 * 60 # 1 hour
 
-    def self.create_session(email, requesting_ip, requesting_user_agent, host)
+    def self.create_session(email, requesting_ip, requesting_user_agent, host, protocol)
       requesting_geo = geoip(requesting_ip)
       session = LoginSession.new(:email => email, :requesting_ip => requesting_ip, :requesting_user_agent => requesting_user_agent, :requesting_geo => requesting_geo)
       code = session.generate_code
       session.save
-      NoPasswordEmails.no_password_email(email, session.id, session.created_at, requesting_ip, requesting_user_agent, requesting_geo, code, host).deliver
+      NoPasswordEmails.no_password_email(email, session.id, session.created_at, requesting_ip, requesting_user_agent, requesting_geo, code, host, protocol).deliver
       return session, code
     end
 
     def activate_session(code, activating_ip, activating_user_agent)
       return nil if self.activated || self.terminated || self.expired?
-      return nil if BCrypt::Password.new(self.hashed_code) != code 
+      return nil if BCrypt::Password.new(self.hashed_code) != code
       self.activated_at = DateTime.now
       self.activating_ip = activating_ip
       self.activating_user_agent = activating_user_agent
@@ -42,7 +42,7 @@ module Nopassword
     end
 
     def revoke(login_session)
-      return nil if login_session.email != self.email 
+      return nil if login_session.email != self.email
       login_session.terminated_at = DateTime.now
       login_session.terminated = true
       login_session.save

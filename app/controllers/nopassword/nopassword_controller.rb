@@ -12,8 +12,9 @@ module Nopassword
       remote_ip = request.remote_ip
       user_agent = request.env["HTTP_USER_AGENT"]
       host = request.host
+      protocol = request.protocol
       if email =~ EMAIL_REGEX
-        LoginSession.create_session(email, remote_ip, user_agent, host)
+        LoginSession.create_session(email, remote_ip, user_agent, host, protocol)
         flash[:notice] = t('nopassword.sent_login_email.mail_sent') % { :email => email }
       else
         flash[:notice] = t('nopassword.sent_login_email.invalid_mail')
