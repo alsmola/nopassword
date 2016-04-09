@@ -64,4 +64,5 @@ Dummy::Application.configure do
   config.action_mailer.delivery_method = :ses
   config.assets.compile = true
   config.assets.precompile = ['*.js', '*.css', '*.css.erb']
+  config.eager_load = false
 end
