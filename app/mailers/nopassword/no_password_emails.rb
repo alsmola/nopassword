@@ -12,7 +12,7 @@ module Nopassword
       @email = email
       @host = host
       @protocol = protocol
-      mail(:to => email,
+      mail(:to => email, :from => ENV["FROM_EMAIL"],
            :subject => "Login request from #{host}")
     end
   end
