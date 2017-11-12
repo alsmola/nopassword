@@ -1,5 +1,5 @@
 # This migration comes from nopassword (originally 20120412041547)
-class CreateLoginCodes < ActiveRecord::Migration
+class CreateLoginCodes < ActiveRecord::Migration[4.2]
   def change
     create_table :nopassword_login_sessions do |t|
       t.string :email

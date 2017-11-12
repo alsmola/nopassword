@@ -11,8 +11,8 @@ group :assets do
   gem 'uglifier'
 end
 
-gem 'bcrypt-ruby'
+gem 'bcrypt'
 gem 'browser'
 gem 'geoip'
-gem 'aws-ses'
+gem 'aws-sdk-rails'
 gem 'dotenv'

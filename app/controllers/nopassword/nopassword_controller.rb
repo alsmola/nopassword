@@ -4,7 +4,7 @@ module Nopassword
 
     EMAIL_REGEX = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/
 
-    before_filter :check_valid_session
+    before_action :check_valid_session
 
     def send_login_email
       redirect_to main_app.root_url if !request.post?
