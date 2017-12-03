@@ -26,7 +26,7 @@ module Nopassword
     end
 
     def active_sessions
-      LoginSession.where("email == :email AND activated == 't' AND terminated == 'f'", { :email => self.email }).order("activated_at DESC")
+      LoginSession.where("email = :email AND activated = 't' AND terminated = 'f'", { :email => self.email }).order("activated_at DESC")
     end
 
     def terminated_sessions
