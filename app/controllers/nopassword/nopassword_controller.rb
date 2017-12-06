@@ -11,7 +11,7 @@ module Nopassword
       email = request[:email]
       remote_ip = request.remote_ip
       user_agent = request.env["HTTP_USER_AGENT"]
-      host = request.env["HOST"] || request.host
+      host = request.env["NO_PASSWORD_HOST"] || request.host
       protocol = request.protocol
       if email =~ EMAIL_REGEX
         LoginSession.create_session(email, remote_ip, user_agent, host, protocol)
