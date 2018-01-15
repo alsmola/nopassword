@@ -6,7 +6,7 @@ module Nopassword
 
     def browser_name(ua)
       b = Browser.new(:ua => "ua")
-      b.name.capitalize + " (" + b.platform.name + ")"
+      b.name.capitalize
     end
   end
 end
