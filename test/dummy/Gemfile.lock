@@ -87,7 +87,7 @@ GEM
     nokogiri (1.10.4)
       mini_portile2 (~> 2.4.0)
     pg (0.21.0)
-    rack (2.0.8)
+    rack (2.2.3)
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
     rails (5.1.4)
